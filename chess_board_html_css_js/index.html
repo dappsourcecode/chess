@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chess Opening Study</title>
+  <link rel="stylesheet" href="chessboard-1.0.0.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Opening Study Board</h1>
+  <div class="controls">
+    <select id="openingSelector">
+      <option value="" disabled selected>Select an Opening</option>
+    </select>
+    <button id="resetBtn">↩️ Reset</button>
+    <button id="prevBtn">⬅️ Back</button>
+    <button id="nextBtn">Forward ➡️</button>
+  </div>
+
+  <div id="myBoard"></div>
+
+  <div id="notationDisplay">
+    <p>Notation: <span id="pgn-output"></span></p>
+  </div>
+  
+  <script src="jquery-3.7.1.min.js"></script>
+  <script src="chess-0.12.1.min.js"></script>
+  <script src="chessboard-1.0.0.min.js"></script>
+  <script src="chessopenings.js"></script>
+  <script src="script.js"></script>
+</body>
+<footer>
+    <h1>Reference</h1>
+    <ul>
+        <li><a href="https://chessboardjs.com">https://chessboardjs.com</a></li>
+        <li><a href="https://jhlywa.github.io/chess.js">https://jhlywa.github.io/chess.js</a></li>
+    </ul>
+</footer>
+</html>

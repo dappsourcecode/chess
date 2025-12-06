@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chess Opening Study</title>
+  <link rel="stylesheet"
+    href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
+  
+  <style>
+    /* Simple layout styling */
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #f0f0f0;
+      padding: 20px;
+    }
+    #myBoard {
+      width: 400px;
+      margin: 20px;
+    }
+    .controls {
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    select {
+      padding: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Opening Study Board</h1>
+
+  <div class="controls">
+    <select id="openingSelector">
+      <option value="" disabled selected>Select an Opening</option>
+      </select>
+    <button id="playBtn">Play Animation</button>
+  </div>
+
+  <div id="myBoard"></div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+  <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
+
+  <script>
+    // --- 1. CONFIGURATION & OPENINGS DATA ---
+    // This is where you add your openings. 
+    // Format: "Opening Name": "move1 move2 move3..."
+    const openings = {
+      "Ruy Lopez": "e4 e5 Nf3 Nc6 Bb5 a6 Ba4 Nf6",
+      "Sicilian Defense (Najdorf)": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6",
+      "French Defense": "e4 e6 d4 d5 Nc3 Bb4",
+      "Queen's Gambit": "d4 d5 c4 e6 Nc3 Nf6 Bg5 Be7",
+      "King's Indian Defense": "d4 Nf6 c4 g6 Nc3 Bg7 e4 d6"
+    };
+
+    // --- 2. INITIALIZATION ---
+    var board = null;
+    var game = new Chess();
+    var $status = $('#status');
+    var $fen = $('#fen');
+    var $pgn = $('#pgn');
+
+// Initialize the board UI
+var config = {
+  position: 'start',
+  draggable: false, // Disable dragging since we are just watching
+  // 👇 FIX IS HERE: Use the absolute URL from the CDN to load the images
+  pieceTheme: 'https://raw.githubusercontent.com/oakmac/chessboardjs/master/website/img/chesspieces/wikipedia/{piece}.png'
+}
+    board = Chessboard('myBoard', config);
+
+    // Populate the dropdown menu
+    const selector = document.getElementById('openingSelector');
+    for (const name in openings) {
+      const option = document.createElement('option');
+      option.value = name;
+      option.innerText = name;
+      selector.appendChild(option);
+    }
+
+    // --- 3. ANIMATION LOGIC ---
+    document.getElementById('playBtn').addEventListener('click', () => {
+      const selectedOpening = selector.value;
+      if (!selectedOpening) {
+        alert("Please select an opening first!");
+        return;
+      }
+
+      playOpening(openings[selectedOpening]);
+    });
+
+    function playOpening(moveString) {
+      // Reset board and game state
+      game.reset();
+      board.start();
+
+      // Split the move string into an array (e.g., ["e4", "e5", ...])
+      // We filter out empty spaces to be safe
+      const moves = moveString.split(" ").filter(m => m.trim().length > 0);
+
+      let i = 0;
+
+      function nextMove() {
+        if (i >= moves.length) return; // Stop if no moves left
+
+        // Make the move in the game logic to get the new FEN position
+        const move = game.move(moves[i]);
+        
+        // Update the visual board
+        board.position(game.fen());
+
+        i++;
+        // Schedule the next move in 1 second (1000ms)
+        setTimeout(nextMove, 1000); 
+      }
+
+      // Start the loop
+      setTimeout(nextMove, 500);
+    }
+  </script>
+</body>
+</html>
