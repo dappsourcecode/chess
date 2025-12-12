@@ -10,10 +10,21 @@
   <div class="controls">
     <select id="openingSelector">
       <option value="" disabled selected>Select an Opening</option>
-    </select>
-    <button id="resetBtn">↩️ Reset</button>
-    <button id="prevBtn">⬅️ Back</button>
-    <button id="nextBtn">Forward ➡️</button>
+      <option value="custom" style="font-weight: bold; color: blue;">-- Paste Custom PGN --</option>
+      </select>
+
+    <div id="customInputContainer" style="display: none; margin-top: 10px;">
+      <textarea id="pgnInput" rows="3" style="width: 100%; box-sizing: border-box;" 
+        placeholder="Paste moves here (e.g., 1. e4 e5 2. Nf3...)"></textarea>
+      <br>
+      <button id="loadCustomBtn" style="margin-top: 5px; background-color: #4CAF50; color: white;">Load Moves</button>
+    </div>
+
+    <div style="margin-top: 10px;">
+      <button id="resetBtn">↩️ Reset</button>
+      <button id="prevBtn">⬅️ Back</button>
+      <button id="nextBtn">Forward ➡️</button>
+    </div>
   </div>
 
   <div id="myBoard"></div>

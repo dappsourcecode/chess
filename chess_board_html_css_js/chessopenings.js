@@ -1,4 +1,4 @@
-const openings = {
+const local_openings = {
   "Ruy Lopez": "e4 e5 Nf3 Nc6 Bb5 a6 Ba4 Nf6",
   "Sicilian Defense (Najdorf)": "e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6",
   "French Defense": "e4 e6 d4 d5 Nc3 Bb4",

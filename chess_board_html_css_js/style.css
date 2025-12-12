@@ -7,9 +7,17 @@ body {
   background-color: #f0f0f0;
   padding: 20px;
 }
+/* Before (Original CSS - had fixed width): */
+/* #myBoard {
+    width: 400px;
+    margin: 20px;
+} */
+
+/* After (The Fix - Use responsive width): */
 #myBoard {
-  width: 400px;
-  margin: 20px;
+    width: 90%; /* Scale to 90% of the screen/parent width */
+    max-width: 500px; /* Optional: set a reasonable maximum size for large screens */
+    margin: 20px auto; /* Center the board horizontally */
 }
 .controls {
   margin-bottom: 20px;
